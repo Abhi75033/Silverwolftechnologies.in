@@ -385,7 +385,7 @@ export const CareersPage = () => {
               </Button>
               <Button asChild variant="whatsapp" size="lg" className="w-full sm:w-auto">
                 <a
-                  href="https://wa.me/919316028350"
+                  href="https://wa.me/916394753801"
                   target="_blank"
                   rel="noreferrer"
                   className="flex items-center justify-center gap-2 text-white hover:text-white/90 w-full"
@@ -514,7 +514,7 @@ export const CareersPage = () => {
                     <Input
                       id="phone"
                       type="tel"
-                      placeholder="+91 93160 28350"
+                      placeholder="+91 63947 53801"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       className="bg-[#090a0d] border border-white/15 rounded-xl text-sm text-white placeholder:text-muted-foreground/40 focus:border-primary/60 focus:ring-1 focus:ring-primary/60 focus-visible:ring-0 focus-visible:ring-offset-0 transition-all duration-200"

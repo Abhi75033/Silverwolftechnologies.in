@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 
 // Declare adsbygoogle property on the window object for TypeScript
@@ -14,38 +14,41 @@ declare global {
  * AdSenseFooterBanner component
  * Renders a responsive Google AdSense banner that is displayed above the footer.
  * Utilizes the pathname as a key to force component remounting on page changes,
- * preventing duplicate initialization issues and ensuring ads load on route transition.
+ * and checks element status before pushing to prevent "TagError: All ins elements already have ads".
  */
 export function AdSenseFooterBanner() {
   const pathname = usePathname();
+  const insRef = useRef<HTMLModElement>(null);
+  const pushedRef = useRef(false);
 
   useEffect(() => {
-    // Ensure window is defined (client-side execution)
-    if (typeof window === "undefined") return;
+    // Ensure window and ins element are defined
+    if (typeof window === "undefined" || !insRef.current) return;
+
+    // Check if this ins tag has already been processed or pushed
+    const isAlreadyInitialized =
+      pushedRef.current ||
+      insRef.current.getAttribute("data-adsbygoogle-status") ||
+      insRef.current.getAttribute("data-ad-status") ||
+      insRef.current.children.length > 0;
+
+    if (isAlreadyInitialized) {
+      return;
+    }
 
     try {
-      // Initialize the ad slot by pushing an empty object to the adsbygoogle queue.
-      // If the client has loaded adsbygoogle.js, this will trigger the ad to load.
-      // If the script is blocked (e.g. by an ad blocker), adsbygoogle will either
-      // be undefined or the push will fail, which is caught safely.
-      if (window.adsbygoogle) {
-        window.adsbygoogle.push({});
-      } else {
-        // Initialize it as an array if not present, so that if the script loads later it executes
-        window.adsbygoogle = window.adsbygoogle || [];
-        window.adsbygoogle.push({});
-      }
+      pushedRef.current = true;
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
     } catch (err) {
       // Fail silently if an ad blocker prevents loading or initialization
-      console.warn("Google AdSense banner initialization failed (likely blocked):", err);
+      console.warn("Google AdSense banner initialization failed:", err);
     }
-  }, [pathname]); // Re-run whenever the user navigates to a new page
+  }, [pathname]);
 
   return (
     <div
       // Using pathname as the key forces React to unmount and remount this entire DOM tree
-      // on route navigation. This ensures a brand new <ins> tag is created, resolving
-      // the "Duplicate AdSense initialization on the same DOM element" issue.
+      // on route navigation. This ensures a brand new <ins> tag is created.
       key={pathname}
       className="w-full flex justify-center py-8 px-4 bg-transparent border-t border-border/10 my-4"
       aria-hidden="true"
@@ -58,6 +61,7 @@ export function AdSenseFooterBanner() {
           2. Replace the data-ad-slot value below with your actual Ad Slot ID.
         */}
         <ins
+          ref={insRef}
           className="adsbygoogle"
           style={{ display: "block", width: "100%", textAlign: "center" }}
           data-ad-client="ca-pub-2747147036042508"
@@ -70,3 +74,4 @@ export function AdSenseFooterBanner() {
     </div>
   );
 }
+

@@ -33,7 +33,7 @@ export default function ServiceSubCityPage({ params }: { params: { slug: string;
       "addressLocality": subCity,
       "addressCountry": "IN"
     },
-    "telephone": "+91-9316028350",
+    "telephone": "+91-6394753801",
     "email": "info@silverwolftechnologies.in",
     "areaServed": subCity,
     "parentOrganization": {

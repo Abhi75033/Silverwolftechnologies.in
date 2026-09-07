@@ -76,7 +76,7 @@ const schema1 = {
   "contactPoint": [
     {
       "@type": "ContactPoint",
-      "telephone": "+91-9316028350",
+      "telephone": "+91-6394753801",
       "contactType": "customer service",
       "availableLanguage": ["English", "Hindi"],
       "areaServed": ["IN", "GB", "AE", "US", "CA", "AU", "SG"]
@@ -90,7 +90,7 @@ const schema1 = {
   ],
   "email": "info@silverwolftechnologies.in",
   "sameAs": [
-    "https://wa.me/919316028350"
+    "https://wa.me/916394753801"
   ],
   "areaServed": ["India", "United Kingdom", "United Arab Emirates",
     "United States", "Canada", "Australia", "Singapore"],

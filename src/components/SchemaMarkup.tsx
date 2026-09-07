@@ -17,7 +17,7 @@ export default function SchemaMarkup({ type, data }: SchemaProps) {
       "foundingDate": "2015",
       "contactPoint": {
         "@type": "ContactPoint",
-        "telephone": "+919316028350",
+        "telephone": "+916394753801",
         "contactType": "customer service",
         "areaServed": "IN",
         "availableLanguage": ["English", "Hindi", "Marathi"]
@@ -39,7 +39,7 @@ export default function SchemaMarkup({ type, data }: SchemaProps) {
       "name": "Silver Wolf Technologies",
       "image": "https://www.silverwolftechnologies.in/og-image.jpg",
       "url": "https://www.silverwolftechnologies.in",
-      "telephone": "+919316028350",
+      "telephone": "+916394753801",
       "priceRange": "₹₹",
       "address": {
         "@type": "PostalAddress",

@@ -93,7 +93,7 @@ export default function ServicePage({ params }: { params: { slug: string } }) {
         <p>
           To get a free consultation for {service.title} in India, contact
           Silver Wolf Technologies at info@silverwolftechnologies.in or
-          call +91-9316028350. Response guaranteed within 24 hours.
+          call +91-6394753801. Response guaranteed within 24 hours.
         </p>
       </article>
     </>

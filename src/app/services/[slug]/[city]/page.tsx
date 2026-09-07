@@ -29,7 +29,7 @@ export default function ServiceCityPage({ params }: { params: { slug: string; ci
       "addressLocality": city,
       "addressCountry": "IN"
     },
-    "telephone": "+91-9316028350",
+    "telephone": "+91-6394753801",
     "email": "info@silverwolftechnologies.in",
     "areaServed": city,
     "parentOrganization": {

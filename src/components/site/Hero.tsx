@@ -10,6 +10,7 @@ import { ArrowRight, Sparkles, Send } from "lucide-react";
 import { z } from "zod";
 import { toast } from "sonner";
 import heroBg from "@/assets/hero-bg.jpg";
+import { SITE } from "@/data/site";
 
 const enquirySchema = z.object({
   name: z.string().trim().min(2, "Name is too short").max(100),
@@ -24,7 +25,8 @@ export const Hero = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const parsed = enquirySchema.safeParse({
       name: fd.get("name"),
       email: fd.get("email"),
@@ -36,12 +38,24 @@ export const Hero = () => {
       toast.error(parsed.error.issues[0].message);
       return;
     }
+
     setLoading(true);
-    setTimeout(() => {
-      toast.success("Thanks! Our team will reach out within 24 hours.");
-      (e.target as HTMLFormElement).reset();
-      setLoading(false);
-    }, 700);
+
+    const { name, email, phone, service, message } = parsed.data;
+    const text =
+      `*New Quote Enquiry - Silver Wolf Technologies*\n\n` +
+      `*Name:* ${name}\n` +
+      `*Email:* ${email}\n` +
+      (phone ? `*Phone:* ${phone}\n` : "") +
+      (service ? `*Service:* ${service}\n` : "") +
+      `*Message:* ${message}`;
+
+    const whatsappUrl = `https://wa.me/${SITE.whatsapp}?text=${encodeURIComponent(text)}`;
+
+    toast.success("Opening WhatsApp to send your quote request...");
+    window.open(whatsappUrl, "_blank");
+    form.reset();
+    setLoading(false);
   };
 
   return (
